@@ -1,0 +1,39 @@
+
+spring:
+  application:
+    name: calification-service
+  cloud:
+    config:
+      enabled: false
+      uri: http://localhost:30000
+# MySQL Data Source Configuration
+
+  datasource:
+    url: jdbc:sqlserver://${DATABASE_HOST:localhost};database=${DATABASE_NAME:dbLegizCalification};TrustServerCertificate=True;
+    username: ${USERNAME_DB:usrGym}
+    password: ${PASSWORD_DB:usrGym}
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+
+  # MySQL Dialect configuration
+  jpa:
+    database-platform: org.hibernate.dialect.SQLServer2008Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: create 
+
+server:
+  port: 0
+  
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    preferIpAddress: true 
+    instance-id: ${spring.application.name}:${random.uuid}
+
+springdoc:
+  api-docs:
+    path: /legiz-calification-api-docs
+  swagger-ui:
+    path: /legiz-calification-api-docs-ui.html
